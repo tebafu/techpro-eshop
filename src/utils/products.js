@@ -1,4 +1,4 @@
-const getPriceOfProduct = (product) => (product.isDiscounted ? product.dPrice : product.price);
+const getPriceOfProduct = (product) => (product.discounted ? product.dPrice : product.price);
 
 const sortProducts = (products, order) => {
     switch (order) {

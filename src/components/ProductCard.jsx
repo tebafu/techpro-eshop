@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 import { red } from "@mui/material/colors";
 
-const ProductCard = ({ _id, price, productName, isDiscounted, dPrice }) => {
+const ProductCard = ({ _id, price, productName, discounted, dPrice }) => {
     const router = useRouter();
 
     const handleAddToCart = () => {
@@ -35,7 +35,7 @@ const ProductCard = ({ _id, price, productName, isDiscounted, dPrice }) => {
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         Price:{" "}
-                        {isDiscounted ? (
+                        {discounted ? (
                             <span>
                                 <span style={{ textDecoration: "line-through", color: red[500] }}>${price}</span> $
                                 {dPrice}

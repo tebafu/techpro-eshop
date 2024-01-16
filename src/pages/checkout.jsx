@@ -6,8 +6,8 @@ const Checkout = () => {
     const [form, setform] = useState({ name: "", email: "", phone: "", city: "", address: "", zipCode: "" });
 
     const cartItems = [
-        { _id: 1, name: "Air Fryer", price: 38.65, quantity: 1 },
-        { _id: 2, name: "Nokia 510i", price: 450, quantity: 1 },
+        { _id: "658d703815063e85c06eac42", name: "Air Fryer", price: 38.65, quantity: 1 },
+        { _id: "658d961cc12f1a487453ac1a", name: "Nokia 510i", price: 450, quantity: 1 },
     ];
 
     return (

@@ -11,13 +11,15 @@ const Product = () => {
     const id = router.query.id;
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/products")
-            .then((res) => res.json())
-            .then((json) => setProducts(json))
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
-    }, []);
+        if (id) {
+            fetch(`http://localhost:8080/api/products/${id}`)
+                .then((res) => res.json())
+                .then((json) => setProduct(json))
+                .catch((error) => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+    }, [id]);
 
     if (!product) {
         return (
@@ -71,7 +73,7 @@ const Product = () => {
 
                             <div>
                                 <Typography variant="h6" color="textSecondary" gutterBottom>
-                                    {product.isDiscounted ? (
+                                    {product.discounted ? (
                                         <span>
                                             <span style={{ textDecoration: "line-through", color: red[500] }}>
                                                 ${product.price}
