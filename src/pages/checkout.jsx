@@ -96,7 +96,7 @@ const Checkout = () => {
                                 color="primary"
                                 style={{ marginTop: 20 }}
                                 onClick={() => {
-                                    const payload = { user: form, productIds: cartItems.map((product) => product._id) };
+                                    const payload = cartItems.map((product) => product._id);
                                     fetch("http://localhost:8080/api/orders/newOrder", {
                                         method: "POST",
                                         headers: {
