@@ -1,21 +1,19 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../cartSlice";
 import { Container, Grid, Paper, Typography, TextField, Button, Box } from "@mui/material";
 import Cart from "@/components/Cart";
 
 const Checkout = () => {
     const [form, setform] = useState({ name: "", email: "", phone: "", city: "", address: "", zipCode: "" });
-
-    const cartItems = [
-        { _id: "658d703815063e85c06eac42", name: "Air Fryer", price: 38.65, quantity: 1 },
-        { _id: "658d961cc12f1a487453ac1a", name: "Nokia 510i", price: 450, quantity: 1 },
-    ];
-
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cart.products);
     return (
         <Container>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
                     <Paper style={{ padding: 20, marginBottom: 20 }}>
-                        <Cart cartItems={cartItems} />
+                        <Cart />
                     </Paper>
                 </Grid>
 
@@ -103,9 +101,13 @@ const Checkout = () => {
                                             "Content-Type": "application/json",
                                         },
                                         body: JSON.stringify(payload),
-                                    }).catch((error) => {
-                                        console.error("Error:", error);
-                                    });
+                                    })
+                                        .then((response) => {
+                                            dispatch(clearCart());
+                                        })
+                                        .catch((error) => {
+                                            console.error("Error:", error);
+                                        });
 
                                     console.log(payload);
                                 }}

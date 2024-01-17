@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../cartSlice";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
@@ -11,11 +13,18 @@ import { red } from "@mui/material/colors";
 
 const ProductCard = ({ _id, price, productName, discounted, dPrice }) => {
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const handleAddToCart = () => {
-        console.log("Added to cart: ", _id);
+        dispatch(
+            addProduct({
+                _id,
+                name: productName,
+                price: discounted ? dPrice : price,
+                quantity: 1,
+            })
+        );
     };
-
     const handleCardClick = () => {
         router.push(`/products/${_id}`);
     };

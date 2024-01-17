@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../cartSlice";
 import { Grid, Typography, Paper, Button, Stack, Box, CircularProgress } from "@mui/material";
 import { red } from "@mui/material/colors";
 import Image from "next/image";
@@ -8,7 +10,20 @@ const Product = () => {
     const [product, setProduct] = useState();
 
     const router = useRouter();
+    const dispatch = useDispatch();
+
     const id = router.query.id;
+
+    const handleAddToCart = (product) => {
+        dispatch(
+            addProduct({
+                _id: product._id,
+                name: product.productName,
+                price: product.discounted ? product.dPrice : product.price,
+                quantity: 1,
+            })
+        );
+    };
 
     useEffect(() => {
         if (id) {
@@ -88,7 +103,12 @@ const Product = () => {
                                     <strong>Stock:</strong>{" "}
                                     {product.stock > 0 ? `${product.stock} Available` : "Out of Stock"}
                                 </Typography>
-                                <Button color="primary" variant="outlined" disabled={product.stock === 0}>
+                                <Button
+                                    color="primary"
+                                    variant="outlined"
+                                    disabled={product.stock === 0}
+                                    onClick={() => handleAddToCart(product)}
+                                >
                                     Add to Cart
                                 </Button>
                             </div>
